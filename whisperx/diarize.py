@@ -17,7 +17,8 @@ class DiarizationPipeline:
     ):
         if isinstance(device, str):
             device = torch.device(device)
-        self.model = Pipeline.from_pretrained(model_name, use_auth_token=use_auth_token).to(device)
+        # Handle both parameter names for compatibility
+        self.model = Pipeline.from_pretrained(model_name, token=use_auth_token).to(device)
 
     def __call__(
         self,

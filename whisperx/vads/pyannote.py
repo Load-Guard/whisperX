@@ -192,10 +192,16 @@ class VoiceActivitySegmentation(VoiceActivityDetection):
             segmentation: PipelineModel = "pyannote/segmentation",
             fscore: bool = False,
             use_auth_token: Union[Text, None] = None,
+            token: Union[Text, None] = None,
             **inference_kwargs,
     ):
-
-        super().__init__(segmentation=segmentation, fscore=fscore, use_auth_token=use_auth_token, **inference_kwargs)
+        auth_token = token if token is not None else use_auth_token
+        if 'token' in inference_kwargs:
+            del inference_kwargs['token']
+        if 'use_auth_token' in inference_kwargs:
+            del inference_kwargs['use_auth_token']
+        
+        super().__init__(segmentation=segmentation, fscore=fscore, token=auth_token, **inference_kwargs)
 
     def apply(self, file: AudioFile, hook: Optional[Callable] = None) -> Annotation:
         """Apply voice activity detection

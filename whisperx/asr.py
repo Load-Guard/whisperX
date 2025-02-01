@@ -364,8 +364,8 @@ def load_model(
         "without_timestamps": True,
         "max_initial_timestamp": 0.0,
         "word_timestamps": False,
-        "prepend_punctuations": "\"'“¿([{-",
-        "append_punctuations": "\"'.。,，!！?？:：”)]}、",
+        "prepend_punctuations": "\"'""¿([{-",
+        "append_punctuations": "\"'.。,，!！?？:："")]}、",
         "multilingual": model.model.is_multilingual,
         "suppress_numerals": False,
         "max_new_tokens": None,
@@ -399,7 +399,7 @@ def load_model(
         if vad_method == "silero":
             vad_model = Silero(**default_vad_options)
         elif vad_method == "pyannote":
-            vad_model = Pyannote(torch.device(device), use_auth_token=None, **default_vad_options)
+            vad_model = Pyannote(torch.device(device), token=None, **default_vad_options)
         else:
             raise ValueError(f"Invalid vad_method: {vad_method}")
 
